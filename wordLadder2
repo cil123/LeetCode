@@ -8,7 +8,7 @@ public class Solution {
         if(dict.isEmpty()){
             return ret;
         }
-        ArrayList<String> list = new ArrayList<String>();
+        
         HashMap<String, String> hash = new HashMap<String, String>();
         
         int len = 1;
@@ -26,7 +26,8 @@ public class Solution {
                if(hash.isEmpty()){  //when start == end
                   ArrayList<String> list = new ArrayList<String>();
                   list.add(st);
-                  return list;
+                  ret.add(list);
+                  return ret;
                }else{
                   ArrayList<String> list = new ArrayList<String>();
                   String s = st;
@@ -46,7 +47,7 @@ public class Solution {
                  if(dict.contains(cur) && !visited.contains(cur)){
                      q.add(cur);
                      visited.add(cur);
-                     hash.push(cur, st);
+                     hash.put(cur, st);
                      len2++;
                  }
               }
