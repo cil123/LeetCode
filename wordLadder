@@ -20,30 +20,23 @@ public class Solution {
         
         while(!q.isEmpty()){
             String st = q.poll();
-            ArrayList<String> list = getWord(st);
             len--;
-            if(len == 0){
-            	step++;
-            }
-           // System.out.println(step);
-            for(String cur : list){
-            	//System.out.println(cur);
-                if(cur.equals(end)){
-                    step = step + 1;
-                  //  System.out.println(step);
-                    return step;
-                }else{
-                
+            
+            if(st.equals(end)){
+               step = step + 1;
+               return step;
+            }else{
+            ArrayList<String> list = getWord(st);
+              for(String cur : list){
                  if(dict.contains(cur) && !visited.contains(cur)){
                      q.add(cur);
                      visited.add(cur);
                      len2++;
                  }
-                }
-            }
-            System.out.println("out " + st + "len " + len);
+              }
+        }
             if(len == 0){
-            	System.out.println("out " + st + "step " + step);
+
                 len = len2;
                 len2 = 0;
               } 
