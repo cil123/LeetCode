@@ -1,0 +1,75 @@
+import java.util.*;
+public class Solution {
+    public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<ArrayList<String>> ret = new ArrayList<ArrayList<String>>();
+        
+        if(dict.isEmpty()){
+            return ret;
+        }
+        ArrayList<String> list = new ArrayList<String>();
+        HashMap<String, String> hash = new HashMap<String, String>();
+        
+        int len = 1;
+        int len2 = 0;
+        Queue<String> q = new LinkedList<String>();
+        HashSet<String> visited = new HashSet<String>();
+        q.add(start);
+        visited.add(start);
+        
+        while(!q.isEmpty()){
+            String st = q.poll();
+            len--;
+            
+            if(st.equals(end)){
+               if(hash.isEmpty()){  //when start == end
+                  ArrayList<String> list = new ArrayList<String>();
+                  list.add(st);
+                  return list;
+               }else{
+                  ArrayList<String> list = new ArrayList<String>();
+                  String s = st;
+                  while(s != null){
+                      list.add(0, s);
+                      String pre = hash.get(s);
+                      s = pre;
+                  }
+                  ret.add(list);
+                  if(len == 0){
+                     return ret;
+                  }
+              }
+            }else{
+            ArrayList<String> list = getWord(st);
+              for(String cur : list){
+                 if(dict.contains(cur) && !visited.contains(cur)){
+                     q.add(cur);
+                     visited.add(cur);
+                     hash.push(cur, st);
+                     len2++;
+                 }
+              }
+        }
+            if(len == 0){
+                len = len2;
+                len2 = 0;
+              } 
+        }
+        return ret;
+        
+    }
+    public ArrayList<String> getWord(String st){
+        ArrayList<String> ret = new ArrayList<String>();
+        int length = st.length();
+        char[] ch = st.toCharArray();
+        for(int i = 0; i < length; i++){
+            for(int j = 0; j < 26; j++){
+                ch[i] = (char)('a' + j);
+                ret.add(new String(ch));
+                ch = st.toCharArray();
+            }
+        }
+        return ret;
+    }
+}
