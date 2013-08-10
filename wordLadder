@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.*;  
+//bfs
+//use an index to count the number of strings in each layer. when all strings are polled, this layer is done and step + 1. then start next layer. 
+//check whether the string is end or not, should use the head of queue, not the leaf of head. in this way u can count step.
 
 public class Solution {
     public int ladderLength(String start, String end, HashSet<String> dict) {
@@ -7,9 +10,9 @@ public class Solution {
         if(dict.isEmpty()){
             return 0;
         }
-        if(start.equals(end)){
-            return 1;
-        }
+       // if(start.equals(end)){
+    //        return 1;
+      //  }
         int len = 1;
         int step = 0;
         int len2 = 0;
@@ -36,7 +39,7 @@ public class Solution {
               }
         }
             if(len == 0){
-
+               step = step + 1;
                 len = len2;
                 len2 = 0;
               } 
@@ -52,6 +55,7 @@ public class Solution {
             for(int j = 0; j < 26; j++){
                 ch[i] = (char)('a' + j);
                 ret.add(new String(ch));
+                ch = st.toCharArray();
             }
         }
         return ret;
