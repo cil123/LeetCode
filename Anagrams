@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Solution {
+    public ArrayList<String> anagrams(String[] strs) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<String> ret = new ArrayList<String>();
+        if(strs == null){
+            return ret;
+        }
+        Hashtable<String, LinkedList<String>> hash = new Hashtable<String, LinkedList<String>>();
+        for(int i = 0; i < strs.length; i++){
+            String s = strs[i];
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            String scopy = new String(arr);
+            if(hash.containsKey(scopy)){
+                LinkedList<String> list = hash.get(scopy);
+                list.add(s);
+                hash.put(scopy, list);
+            }else{
+                LinkedList<String> list = new LinkedList<String>();
+                list.add(s);
+                hash.put(scopy, list);
+            }
+        }
+        
+        Set<String> set = hash.keySet();
+        for(String st : set){
+            LinkedList<String> list = hash.get(st);
+            if(list.size() > 1){
+                for(int i = 0; i < list.size(); i++){
+                    ret.add(list.get(i));
+                }
+            }
+        }
+        return ret;
+    }
+}
