@@ -9,25 +9,26 @@ public class Solution {
             return ret;
         }
         
-        HashMap<String, String> hash = new HashMap<String, String>();
-        
         int len = 1;
         int len2 = 0;
         Queue<String> q = new LinkedList<String>();
         HashSet<String> visited = new HashSet<String>();
         q.add(start);
         visited.add(start);
+        Queue<ArrayList<String>> qlist = new Queue<ArrayList<String>>();
+        ArrayList<String> first = new ArrayList<String>();
+        first.add(start);
+        qlist.add(first);
+        boolean flag = false;
         
         while(!q.isEmpty()){
             String st = q.poll();
+            ArrayList<String> arrlist = qlist.remove(0);
             len--;
             
             if(st.equals(end)){
-               if(hash.isEmpty()){  //when start == end
-                  ArrayList<String> list = new ArrayList<String>();
-                  list.add(st);
-                  ret.add(list);
-                  return ret;
+               flag = true;
+               ret.add(arrlist);
                }else{
                   ArrayList<String> list = new ArrayList<String>();
                   String s = st;
@@ -44,15 +45,28 @@ public class Solution {
             }else{
             ArrayList<String> list = getWord(st);
               for(String cur : list){
-                 if(dict.contains(cur) && !visited.contains(cur)){
+                 boolean f = true;
+                 
+                for(int k = 0; k < arrlist.size(); k++){
+                   if(cur.equals(arrlist.get(k))){
+                      f = false;
+                      break;
+                      }
+                }
+                 if(dict.contains(cur) && !visited.contains(cur) && f){
                      q.add(cur);
                      visited.add(cur);
-                     hash.put(cur, st);
+                     ArrayList<String> temp = new ArrayList<String>(arrlist);
+                     temp.add(cur);
+                     qlist.add(temp);
                      len2++;
                  }
               }
         }
             if(len == 0){
+               if(flag == true){
+                  return ret;
+                  }
                 len = len2;
                 len2 = 0;
               } 
