@@ -14,7 +14,7 @@ public class Solution {
         Queue<String> q = new LinkedList<String>();
         HashSet<String> visited = new HashSet<String>();
         q.add(start);
-        visited.add(start);
+       // visited.add(start);
         Queue<ArrayList<String>> qlist = new LinkedList<ArrayList<String>>();
         ArrayList<String> first = new ArrayList<String>();
         first.add(start);
@@ -23,6 +23,7 @@ public class Solution {
         
         while(!q.isEmpty()){
             String st = q.poll();
+            
             ArrayList<String> arrlist = qlist.poll();
             len--;
             
@@ -40,9 +41,9 @@ public class Solution {
                       break;
                       }
                 }
-                 if(dict.contains(cur) && !visited.contains(cur) && f){
+                 if(dict.contains(cur) && f){
                      q.add(cur);
-                     visited.add(cur);
+                    // visited.add(cur);
                      ArrayList<String> temp = new ArrayList<String>(arrlist);
                      temp.add(cur);
                      qlist.add(temp);
