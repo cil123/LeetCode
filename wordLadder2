@@ -15,7 +15,7 @@ public class Solution {
         HashSet<String> visited = new HashSet<String>();
         q.add(start);
         visited.add(start);
-        Queue<ArrayList<String>> qlist = new Queue<ArrayList<String>>();
+        Queue<ArrayList<String>> qlist = new LinkedList<ArrayList<String>>();
         ArrayList<String> first = new ArrayList<String>();
         first.add(start);
         qlist.add(first);
@@ -23,25 +23,12 @@ public class Solution {
         
         while(!q.isEmpty()){
             String st = q.poll();
-            ArrayList<String> arrlist = qlist.remove(0);
+            ArrayList<String> arrlist = qlist.poll();
             len--;
             
             if(st.equals(end)){
                flag = true;
                ret.add(arrlist);
-               }else{
-                  ArrayList<String> list = new ArrayList<String>();
-                  String s = st;
-                  while(s != null){
-                      list.add(0, s);
-                      String pre = hash.get(s);
-                      s = pre;
-                  }
-                  ret.add(list);
-                  if(len == 0){
-                     return ret;
-                  }
-              }
             }else{
             ArrayList<String> list = getWord(st);
               for(String cur : list){
