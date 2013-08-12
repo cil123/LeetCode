@@ -1,0 +1,31 @@
+public class Solution {
+    public int search(int[] A, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(A == null || A.length == 0){
+            return -1;
+        }
+        return searchArr(A, 0, A.length - 1, target);
+    }
+    public int searchArr(int[] A, int start, int end, int target){
+        int mid = A.length/2;
+        if(A[mid] == target){
+            return mid;
+        }
+        
+        if(A[mid] > A[start]){
+            if(target < A[mid] && target > A[start]){
+                searchArr(A, start, mid - 1, target);
+            }else{
+                searchArr(A, mid + 1, end, target);
+            }
+        }else if(A[mid] < A[start]){
+            if(target > A[mid] && target < A[end]){
+                searchArr(A, mid + 1, end, target);
+            }else{
+                searchArr(A, start, mid - 1, target);
+            }
+        }
+        return -1;
+    }
+}
