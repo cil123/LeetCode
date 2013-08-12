@@ -8,23 +8,27 @@ public class Solution {
         return searchArr(A, 0, A.length - 1, target);
     }
     public int searchArr(int[] A, int start, int end, int target){
-        int mid = A.length/2;
+        int mid = (start + end)/2;
         if(A[mid] == target){
             return mid;
         }
-        
+        if(start > end){
+            return -1;
+        }
         if(A[mid] > A[start]){
-            if(target < A[mid] && target > A[start]){
-                searchArr(A, start, mid - 1, target);
+            if(target <= A[mid] && target >= A[start]){
+                return searchArr(A, start, mid - 1, target);
             }else{
-                searchArr(A, mid + 1, end, target);
+                return searchArr(A, mid + 1, end, target);
             }
         }else if(A[mid] < A[start]){
-            if(target > A[mid] && target < A[end]){
-                searchArr(A, mid + 1, end, target);
+            if(target >= A[mid] && target <= A[end]){
+                return searchArr(A, mid + 1, end, target);
             }else{
-                searchArr(A, start, mid - 1, target);
+                return searchArr(A, start, mid - 1, target);
             }
+        }else if(start == mid){
+            return searchArr(A, mid + 1, end, target);
         }
         return -1;
     }
