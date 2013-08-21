@@ -1,0 +1,45 @@
+// java cannot pass by ref for int, use wrapper class or define it as data member.
+// compare this problem with BT max sum with not adj node.
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int max;
+    public int maxPathSum(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root == null){
+            return 0;
+        }
+        max = root.val;
+        
+        int oneside = maxSum(root);
+        return Math.max(oneside, max);
+    }
+    
+    public int maxSum(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        
+        int left = maxSum(root.left);
+        int right = maxSum(root.right);
+        
+        int leftRight = Math.max(left, right);
+        int oneSide = Math.max(root.val, leftRight + root.val);
+        
+        int subTree = root.val;
+        subTree = Math.max(subTree, subTree + left);
+        subTree = Math.max(subTree, subTree + right);
+        
+        max = Math.max(max, subTree);
+        return oneSide;
+    }
+}
