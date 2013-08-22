@@ -29,7 +29,7 @@ public class Solution {
         if(left != null){
             root.left = null;
             root.right = left;
-            root = flat(root.left);
+            root = flat(left); // here i made small mistake. i used root.left but it's null..
             if(right != null){
                 root.right = right;
                  root = flat(right);
