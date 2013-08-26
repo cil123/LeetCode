@@ -1,0 +1,38 @@
+//use similar method with regex but cannot pass boj.
+//misunderstand the rule. * can be any sequence and it doesn't has to be the same characters in it. it also can be an empty string.
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s == null || p == null){
+            return false;
+        }
+        
+        if(p.length() == 0){
+            return s.length() == 0;
+        }
+        
+        if(p.charAt(0) != '*'){
+            if(s.length() == 0 || (p.charAt(0) != '?' && s.charAt(0) != p.charAt(0))){
+                return false;
+            }
+            return isMatch(s.substring(1), p.substring(1));
+        }else{
+            if(s.length() == 0){
+                return isMatch(s, p.substring(1));
+            }
+            
+            if(isMatch(s, p.substring(1))){
+                return true;
+            }
+            int k = 1;
+            while(k <= s.length()){
+                if(isMatch(s.substring(k), p.substring(1))){
+                    return true;
+                }
+                k++;
+            }
+            return false;
+        }
+    }
+}
