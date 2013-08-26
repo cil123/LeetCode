@@ -1,0 +1,35 @@
+//recursion
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s == null || p == null){
+            return false;
+        }
+        
+        if(p.length() == 0){
+            return s.length() == 0;
+        }
+        
+        if(p.charAt(0) == '*'){
+            return false;
+        }
+        
+        if(p.length() < 2 || p.charAt(1) != '*'){
+            if(s.length() == 0 || (p.charAt(0) != '.' && s.charAt(0) != p.charAt(0))){
+                return false;
+            }
+             return isMatch(s.substring(1), p.substring(1));
+        }else{
+            
+            int k = -1;
+            while(k < s.length() && (p.charAt(0) == '.' || k == -1 || (s.charAt(k) == p.charAt(0)))){
+                if(isMatch(s.substring(k + 1), p.substring(2))){
+                    return true;
+                }
+                k++;   
+            }
+            return false;
+        }
+    }
+}
