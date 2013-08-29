@@ -1,4 +1,6 @@
 //use 2-d dp now but still cannot pass boj. what's the problem!!!!
+// count non * character number of p first and compare it with length of s.
+// Also, i was stupid. i put a "if" into another "for" loop, but actually it should be outside. i pointed it out in my code.
 
 public class Solution {
     public boolean isMatch(String s, String p) {
@@ -10,13 +12,20 @@ public class Solution {
         
         int slen = s.length();
         int plen = p.length();
+        int ct = 0;
+        
+        for(int i = 0; i < p.length(); i++){
+            if(p.charAt(i) != '*'){
+                ct++;
+            }
+        }
+        
+        if(ct > slen){
+            return false;
+        }
         boolean[][] dp = new boolean[slen + 1][plen + 1];
         dp[0][0] = true;
-        
-       // for(int i = 1; i <= slen; i++){
-    //        dp[i][0] = false;
-      //  }
-        
+
         for(int i = 1; i <= plen; i++){
             if(p.charAt(i - 1) == '*'){
                 if( dp[0][i - 1]== true){
@@ -27,16 +36,18 @@ public class Solution {
         
         for(int i = 1; i <= s.length(); i++){
             for(int j = 1; j <= p.length(); j++){
-                if((p.charAt(j - 1) == '?' || s.charAt(i - 1) == p.charAt(j - 1)) && dp[i - 1][j - 1] == true){
+                if((p.charAt(j - 1) == '?' || s.charAt(i - 1) == p.charAt(j 
+- 1)) && dp[i - 1][j - 1] == true){
                     dp[i][j] = true;
                 }else if(p.charAt(j - 1) == '*'){
+                    if(dp[i][j - 1] == true){   //----------> my mistake. it should be outside "for" loop and comes earlier.
+                            dp[i][j] = true;     // this piece of code indicates * = 0 characters.
+                        }
+                        
                     for(int k = 0; k < i; k++){
                         if(dp[k][j - 1] == true){
                             dp[i][j] = true;
                             break;
-                        }
-                        if(dp[i][j - 1] == true){
-                            dp[i][j] = true;
                         }
                     }
                 }
