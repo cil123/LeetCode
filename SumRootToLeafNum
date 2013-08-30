@@ -29,12 +29,8 @@ public class Solution {
             value = value * 10 + root.val;
         }
         
-        if(root.left != null){
             toLeaf(root.left, value);
-        }
-        
-        if(root.right != null){
+    
             toLeaf(root.right, value);
-        }
     }
 }
