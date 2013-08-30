@@ -1,0 +1,40 @@
+//haven't test it. leetcode is down now. test it later 
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int sum;
+    public int sumNumbers(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(root == null){
+            return 0;
+        }
+        
+        sum = 0;
+        int value = 0;
+        return sum;
+    }
+    public void toLeaf(TreeNode root, int value){
+        if(root == null){
+            sum += value;
+        }else{
+            value = value * 10 + root.val;
+        }
+        
+        if(root.left != null){
+            toLeaf(root.left, value);
+        }
+        
+        if(root.right != null){
+            toLeaf(root.right, value);
+        }
+    }
+}
