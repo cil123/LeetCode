@@ -1,5 +1,4 @@
-//haven't test it. leetcode is down now. test it later 
-
+//made stupid mistake.
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -24,14 +23,18 @@ public class Solution {
         return sum;
     }
     public void toLeaf(TreeNode root, int value){
-        if(root == null){
-            sum += value;
-        }else{
-            value = value * 10 + root.val;
-        }
+        value = value * 10 + root.val;
         
-            toLeaf(root.left, value);
-    
+        if(root.left == null && root.right == null){
+            sum += value;
+            return;
+        }else if(root.left == null){
             toLeaf(root.right, value);
+        }else if(root.right == null){
+            toLeaf(root.left, value);
+        }else if(root.left != null && root.right != null){
+            toLeaf(root.right,value);
+            toLeaf(root.left, value);
+        }
     }
 }
