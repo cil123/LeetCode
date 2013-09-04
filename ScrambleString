@@ -1,0 +1,38 @@
+//leetcode down. haven't test
+//recursion
+public class Solution{
+  public boolean isScramble(String s1, String s2){
+  if(s1 == null && s2 == null){
+  return true;
+  }
+  
+  if(s1 == null || s2 == null){
+  return false;
+  }
+  
+  if(s1.length() != s2.length()){
+  return false;
+  }
+  
+  if(s1.equals(s2)){  //if equal, it must be scramble
+  return true;
+  }
+  
+  int len = s1.length();
+  for(int i = 1; i < len; i++){
+    String st1 = s1.substring(0, i);          
+    String st2 = s2.substring(len - i, len);
+    String st3 = s1.substring(i, len);
+    String st4 = s2.substring(0, i);
+    
+    if(st1.equals(st2) && (st3.equals(st4) || isScramble(st3, st4))){                   //s1 and s2 is equal from a point 
+      return true;
+    }
+    if(isScramble(st1, st2) && (st3.equals(st4) || isScramble(st3, st4))){      //s1 and s2 is scramble from a point
+    return true;
+    }
+  }
+  return false;
+  }
+}
+    
