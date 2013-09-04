@@ -19,7 +19,8 @@ public class Solution{
   }
   
   int len = s1.length();
-  for(int i = 1; i < len; i++){
+  
+  for(int i = 1; i < len; i++){       // ????????????????????? is it from 1 or 0?
     String st1 = s1.substring(0, i);          
     String st2 = s2.substring(len - i, len);
     String st3 = s1.substring(i, len);
