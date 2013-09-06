@@ -1,0 +1,39 @@
+//final version O(n)
+
+public class Solution {
+    public String addBinary(String a, String b) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        StringBuffer bf = new StringBuffer();
+        int lena = a.length();
+        int lenb = b.length();
+        int maxLen = Math.max(lena, lenb);
+        int carry = 0;
+    
+        
+        for(int i = 0; i < maxLen; i++){
+            int aVal = 0;
+            int bVal = 0;
+            if(i < lena){
+                aVal = a.charAt(lena - 1 - i) - '0';
+            }
+            
+            if(i < lenb){
+                bVal = b.charAt(lenb - 1 - i) - '0';
+            }
+            
+            int tot = aVal + bVal + carry;
+            carry = tot / 2;
+            bf.append(tot % 2);
+        }
+        
+        if(carry == 1){
+            bf.append(1);
+        }
+        
+        bf.reverse();
+        return bf.toString();
+        
+    }
+    
+}
