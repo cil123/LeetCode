@@ -1,0 +1,25 @@
+//compare this problem to a distance maximization problem 
+// one dimension dp
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        //only need to find a lowest one before the largest one 
+        // or the largest one after the lowest one
+        int maxP = 0;
+        int low = 0;
+        int high = 0;
+        for(int i = 0; i < prices.length; i++){
+            if(prices[i] < prices[low]){
+                 low = i;
+            }else{
+                int prof = prices[i] - prices[low];
+                if(prof > maxP){
+                    maxP = prof;
+                }
+            }
+        }
+        return maxP;
+    }
+}
