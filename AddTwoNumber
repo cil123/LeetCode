@@ -1,0 +1,73 @@
+//final version
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(l1 == null){
+            return l2;
+        }
+        if(l2 == null){
+            return l1;
+        }
+        
+        ListNode head = new ListNode(0);
+        ListNode pre = head;
+        
+        int carry = 0;
+        while(l1 != null && l2 != null){
+            int a = l1.val;
+            int b = l2.val;
+            int tot = carry + a + b;
+            int val = tot % 10;
+            carry = tot / 10;
+            ListNode curr = new ListNode(val);
+            pre.next = curr;
+            pre = curr;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        
+        if(l1 == null && l2 == null){
+            if(carry != 0){
+            ListNode curr = new ListNode(carry);
+            pre.next = curr;
+        }
+            return head.next;
+        }
+        
+        ListNode node = new ListNode(0);       //has to initialize, if not, error....but why?
+        if(l1 == null){
+            node = l2;
+        }else if(l2 == null){
+            node = l1;
+        }
+        
+        while(node != null){
+            int tot = node.val + carry;
+            int val = tot % 10;
+            carry = tot / 10;
+            ListNode curr = new ListNode(val);
+            pre.next = curr;
+            pre = curr;
+            node = node.next;
+        }
+        
+        if(carry != 0){
+            ListNode curr = new ListNode(carry);
+            pre.next = curr;
+        }
+        
+        return head.next;
+    }
+}
