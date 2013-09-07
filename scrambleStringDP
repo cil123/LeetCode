@@ -1,0 +1,43 @@
+//3-d DP
+//wrong code, unfinished.
+
+public class Solution {
+    public boolean isScramble(String s1, String s2) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        
+        if(s1 == null && s2 == null){
+          return true;
+        }
+        
+        if(s1 == null || s2 == null || s1.length() != s2.length()){
+          return false;
+        }
+        
+        int len = s1.length();
+        
+        boolean[][][] dp = new boolean[len][len][len];
+        for(int i = len - 1; i >= 0; i--){
+          for(int j = len - 1; j > = 0; j--){
+            for(int k = 1; k <= len; k++){  // k is len, which actually start from 1 to len
+              if(len - i - k < 0 || len - j - k < 0){
+                continue;
+              }
+              String st1 = s1.substring();
+              String st2 = s2.substring();
+              if(st1.equals(st2)){
+                dp[i][j][k] = true;
+            
+              }else if(dp[i][][k] && dp[][][k]){
+                dp[i][j][k] = true;
+           
+              }else if(dp[] && dp[]){
+                dp[i][j][k] = true;
+              }else{
+                dp[i][j][k] = false;
+              }
+           }
+         }
+       }
+    }
+}
