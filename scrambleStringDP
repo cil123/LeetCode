@@ -1,5 +1,6 @@
-//3-d DP
-//wrong code, unfinished.
+//3-d DP 
+//wrong code, unfinished. still doesn't work?? 
+//O(n^4)
 
 public class Solution {
     public boolean isScramble(String s1, String s2) {
@@ -16,28 +17,30 @@ public class Solution {
         
         int len = s1.length();
         
-        boolean[][][] dp = new boolean[len][len][len];
+        boolean[][][] dp = new boolean[len][len][len + 1];
         for(int i = len - 1; i >= 0; i--){
           for(int j = len - 1; j > = 0; j--){
-            for(int k = 1; k <= len; k++){  // k is len, which actually start from 1 to len
-              if(len - i - k < 0 || len - j - k < 0){
-                continue;
-              }
-              String st1 = s1.substring();
-              String st2 = s2.substring();
+            for(int k = 1; k <= len - Math.max(i,j); k++){  // k is length, which actually start from 1 to len
+              
+              String st1 = s1.substring(i, i + k);
+              String st2 = s2.substring(j, j + k);
               if(st1.equals(st2)){
                 dp[i][j][k] = true;
-            
-              }else if(dp[i][][k] && dp[][][k]){
-                dp[i][j][k] = true;
-           
-              }else if(dp[] && dp[]){
-                dp[i][j][k] = true;
               }else{
-                dp[i][j][k] = false;
-              }
-           }
+                
+                for(int l = 1; l < k; l++){
+                    if(dp[i][j][l] && dp[i + l][j + l][k - l]){
+                        return dp[i][j][k]; 
+                    }else if(dp[i][j + k - l][l] && dp[i + l][j][k - l]){
+                        return dp[i][j][k];
+                    }
+                }
+             }
+             
+          }
+          
          }
        }
+       return dp[0][0][len];
     }
 }
