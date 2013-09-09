@@ -1,0 +1,52 @@
+//leetcode is down, do not test them
+
+//consider positive or negative.
+//consider overflow
+// should use long then convert to int
+
+public class Solution {
+    public int atoi(String str) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(str == null){
+            return 0;
+        }
+        
+        if(str.length() == 0){
+            return 0;
+        }
+        
+        String s = str.trim();
+        if(s.length() == 0){
+            return 0;
+        }
+        int start = 0;
+        int value = 0;
+        boolean flag = true;
+        if(s.charAt(0) == '+'){
+            start = 1;
+        }
+        
+        if(s.charAt(0) == '-'){
+            start = 1;
+            flag = false;
+        }
+        
+        for(int i = start; i < s.length(); i++){
+            if(s.charAt(i) > '9' || s.charAt(i) < '0'){
+                break;
+            }
+            value = value * 10 + (s.charAt(i) - '0');
+        }
+        if(flag == false){
+            value = -value;
+            if(value < Integer.MIN_VALUE){
+            	return Integer.MIN_VALUE;
+            }
+        }
+        if(value > Integer.MAX_VALUE){
+        	return Integer.MAX_VALUE;
+        }
+        return value;
+    }
+}
