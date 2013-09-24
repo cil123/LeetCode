@@ -1,18 +1,29 @@
 // has bugs. don't have time to debug it 
-
+import java.util.*;
 public class Solution {
     public ArrayList<String> fullJustify(String[] words, int L) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        
+
         ArrayList<String> arr = new ArrayList<String>();
-        if(words == null || words.length == 0 || L == 0){
+        if(words == null || words.length == 0){
             return arr;
         }
         
+        if(words.length == 1 && words[0] == ""){
+            StringBuffer bf = new StringBuffer();
+            int c = 0;
+            while(c < L){
+                bf.append(" ");
+                c++;
+            }
+            arr.add(bf.toString());
+            return arr;
+        }
+        
+        
         ArrayList<ArrayList<String>> wordCollect = new ArrayList<ArrayList<String>>();
         ArrayList<Integer> ct = new ArrayList<Integer>();
-        
         int count = 0;
         ArrayList<String> curr = new ArrayList<String>();
         
@@ -21,55 +32,85 @@ public class Solution {
             if(count + words[i].length() <= L){
                 curr.add(words[i]);
                 count += words[i].length() + 1;
+                
             }else{
                 wordCollect.add(curr);
                 ct.add(count - 1);
                 curr = new ArrayList<String>();
                 curr.add(words[i]);
-                count += words[i].length() + 1;
+                count = words[i].length() + 1;
             }
         }
         
-        wordCollect.add(curr);
-        ct.add(count - 1);
-        
-        for(int i = 0; i < ct.size(); i++){
+        if(curr.size() != 0){
+        	wordCollect.add(curr);
+        	ct.add(count - 1);
+        }
+        for(int i = 0; i < ct.size() - 1; i++){
             ArrayList<String> cur = wordCollect.get(i);
             int totLength = ct.get(i);
             int len = L - totLength;
             int wordnum = cur.size();
-            int val = len / (wordnum - 1);
-            StringBuffer bf = new StringBuffer();
+           
+            if(cur.size() == 1){
+            	StringBuffer bf = new StringBuffer();
+            	bf.append(cur.get(0));
+            	int c = cur.get(0).length();
+            	while(c < L){
+            		bf.append(" ");
+            		c++;
+            	}
+            	arr.add(bf.toString());
+            }else{
+            	int	val = len / (wordnum - 1);
+                
+            	StringBuffer bf = new StringBuffer();
             
-            if(val == 0){
-                for(int j = 0; j < wordnum - 1; j++){
-                    bf.append(cur.get(j));
-                    if(len != 0){
-                        bf.append(" ");
-                        bf.append(" ");
-                    }else{
-                        bf.append(" ");
-                    }
-                }
-                bf.append(cur.get(wordnum - 1));
-            }else if(val != 0){
-                int rem = len % (wordnum - 1);
-                for(int j = 0; j < wordnum - 1; j++){
-                    bf.append(cur.get(j));
-                    int l = 0;
-                    while(l <= val){
-                        bf.append(" ");
-                    }
-                    if(rem != 0){
-                        bf.append(" ");
-                        rem --;
-                    }
-                }
+            	if(val == 0){
+            		for(int j = 0; j < wordnum - 1; j++){
+            			bf.append(cur.get(j));
+            			if(len != 0){
+            				bf.append(" ");
+            				bf.append(" ");
+            			}else{
+            				bf.append(" ");
+            					}
+            		}
+            		bf.append(cur.get(wordnum - 1));
+            	}else if(val != 0){
+            		int rem = len % (wordnum - 1);
+            		for(int j = 0; j < wordnum - 1; j++){
+            			bf.append(cur.get(j));
+            			int l = 0;
+            			while(l <= val){
+            				bf.append(" ");
+            				l++;
+            			}
+            			if(rem != 0){
+            				bf.append(" ");
+            				rem --;
+            			}
+            		}
+            		bf.append(cur.get(wordnum - 1));
+            	}
+            
+            	String s = bf.toString();
+            	arr.add(s);
             }
-            
-            String s = bf.toString();
-            arr.add(s);
+            }
+            ArrayList<String> last = wordCollect.get(wordCollect.size() - 1);
+        StringBuffer bf = new StringBuffer();
+        int num = last.size();
+        int k = 0;
+         while(k < num){
+        	bf.append(last.get(k));
+        	bf.append(" ");
+        	k++;
         }
-        return arr;
-    }
+        String s = bf.toString();
+        arr.add(s);
+            return arr;
+            return arr;
+        }
 }
+        
