@@ -1,0 +1,28 @@
+// this version has bug. check details. bit manipulate. cannot remember some details.
+// test [1] return -1.
+
+public class Solution {
+    public int singleNumber(int[] A) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int test = 0;
+        int len = A.length;
+        for(int i = 0; i < len; i++){
+            int val = A[i];
+            if((test >> val) == '0'){
+                test = test | (1 << val);
+            }else{
+                int mask = ~(1 << val);
+                test = test & mask;
+            }
+        }
+        
+        for(int i = 0; i < len; i++){
+            int val = A[i];
+            if((test >> val) == '1'){
+                return val;
+            }
+        }
+        
+        return -1;
+    }
+}
