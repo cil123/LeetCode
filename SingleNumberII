@@ -1,0 +1,32 @@
+//leetcode has a similar problem
+
+
+//check the sum of each bit position. if it is not multiplication of 3, add them together and it is result.  
+
+public class Solution {
+    public int singleNumber(int[] A) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int N = A.length;
+        if(N < 3){
+            return A[0];
+        }
+        int[] count = new int[32];
+        
+        int ret = 0;
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < 32; j++){
+                if(((A[i] >> j) & 1) == 1){
+                    count[j] ++;
+                }
+            }
+        }
+        
+        for(int i = 0; i < 32; i++){
+            if(count[i] % 3 != 0){
+                ret |= (1 << i);
+            }
+        }
+        
+        return ret;
+    }
+}
