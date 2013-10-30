@@ -1,0 +1,38 @@
+// O(n) time + O(n) space
+// seems can do it better?? waiting for other better solutions update
+
+
+// read array from left to right, if less than before, set 0, else if bigger than before, + 1
+// read from right to left, do same thing
+// set maximum value of two, is candy give ith kid
+
+
+// compare this problem with stock problem
+
+public class Solution {
+    public int candy(int[] ratings) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int len = ratings.length;
+        int base = len;
+        int[] temp = new int[len];
+        for(int i = 1; i < len; i++){
+            if(ratings[i] > ratings[i - 1]){
+                temp[i] = temp[i - 1] + 1;
+            }
+        }
+        int temp2 = 0;
+        temp[len - 1] = Math.max(temp2, temp[len - 1]);
+        base = base + temp[len - 1];
+        
+        for(int i = len - 2; i >= 0; i--){
+            if(ratings[i] > ratings[i + 1]){
+                temp2 = temp2 + 1;
+            }else{
+                temp2 = 0;
+            }
+            temp[i] = Math.max(temp2, temp[i]);
+            base += temp[i];
+        }
+        return base;
+    }
+}
