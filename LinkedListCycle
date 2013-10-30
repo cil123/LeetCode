@@ -1,0 +1,48 @@
+// should consider the starting position
+// check whether it is a cycle, use 2 pointers with different speed. step = 1 and step = 2. 
+// if two pointers meet, it is a cycle.
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        // IMPORTANT: Please reset any member data you declared, as
+        // the same Solution instance will be reused for each test case.
+        
+        if(head == null || head.next == null){
+            return false;
+        }
+        
+        ListNode p = head;
+        p = p.next;
+        head = head.next;
+        if(p.next == null){
+            return false;
+        }else{
+            p = p.next;
+        }
+        
+        while(p.next != null && p != head){
+            p = p.next;
+            if(p.next == null){
+                return false;
+            }
+            p = p.next;
+            head = head.next;
+        }
+        if(p.next == null){
+            return false;
+        }
+
+        return true;
+    }
+}
