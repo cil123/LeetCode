@@ -1,0 +1,75 @@
+//wrong answer
+
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+ 
+ import java.util.*;
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if(head == null){
+            return null;
+        }
+        RandomListNode p = head;
+        HashSet<RandomListNode> set = new HashSet<RandomListNode>();
+        Hashtable<RandomListNode, RandomListNode> hash = new Hashtable<RandomListNode, RandomListNode>();
+        
+        while(head != null){
+            if(!hash.containsKey(head)){
+                RandomListNode createNode = new RandomListNode(head.label);
+                createNode.next = null;
+                createNode.random = null;
+                addNextRandom(head, createNode, hash, set);
+                set.add(createNode);
+                hash.put(head, createNode);
+                
+            }else{
+                RandomListNode createNode = hash.get(head);
+                addNextRandom(head, createNode, hash, set);
+            }
+            head = head.next;
+        }
+        RandomListNode newHead = hash.get(p);
+        return newHead;
+    }
+    
+    public void addNextRandom(RandomListNode head, RandomListNode createNode, Hashtable<RandomListNode, RandomListNode> hash, HashSet<RandomListNode> set){
+        if(head.next != null){
+            RandomListNode headNext = head.next;
+            RandomListNode createNext = hash.get(headNext);
+                    
+                if(set.contains(createNext)){
+                    createNode.next = createNext;
+                }else{
+                    createNext = new RandomListNode(headNext.label);
+                    createNext.next = null;
+                    createNext.random = null;
+                    set.add(createNext);
+                    hash.put(headNext, createNext);
+                    createNode.next = createNext;
+                }
+        }
+            
+        if(head.random != null){
+                RandomListNode headRand = head.random;
+                RandomListNode createRand = hash.get(headRand);
+                    
+                if(set.contains(createRand)){
+                    createNode.random = head.random;
+                }else{
+                    createRand = new RandomListNode(headRand.label);
+                    createRand.next = null;
+                    createRand.random = null;
+                    set.add(createRand);
+                    hash.put(headRand, createRand);
+                    createNode.random = createRand;
+                }
+            }
+        }
+}
