@@ -1,5 +1,3 @@
-//wrong answer
-
 /**
  * Definition for singly-linked list with a random pointer.
  * class RandomListNode {
@@ -8,7 +6,6 @@
  *     RandomListNode(int x) { this.label = x; }
  * };
  */
- 
  import java.util.*;
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
@@ -60,8 +57,8 @@ public class Solution {
                 RandomListNode headRand = head.random;
                 RandomListNode createRand = hash.get(headRand);
                     
-                if(set.contains(createRand)){
-                    createNode.random = head.random;
+                if(set.contains(hash.get(createRand))){
+                    createNode.random = createRand;
                 }else{
                     createRand = new RandomListNode(headRand.label);
                     createRand.next = null;
