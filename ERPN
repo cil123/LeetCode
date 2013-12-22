@@ -1,0 +1,51 @@
+import java.util.*;
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<Integer>();
+        int ret = 0;
+        for(int i = 0; i < tokens.length; i++){
+            if(tokens[i].equals("+")){
+                add(stack);
+            }else if(tokens[i].equals("-")){
+                minus(stack);
+            }else if(tokens[i].equals("*")){
+                multiple(stack);
+            }else if(tokens[i].equals("/")){
+                divid(stack);
+            }else{
+                int val = Integer.parseInt(tokens[i]);
+                stack.push(val);
+            }
+        }
+        return stack.pop();
+    }
+    
+    public void add(Stack<Integer> stack){
+        int val2 = stack.pop();
+        int val1 = stack.pop();
+        int ret = val1 + val2;
+        stack.push(ret);
+    }
+    
+    public void minus(Stack<Integer> stack){
+        int val2 = stack.pop();
+        int val1 = stack.pop();
+        int ret = val1 - val2;
+        stack.push(ret);
+    }
+    
+    public void multiple(Stack<Integer> stack){
+        int val2 = stack.pop();
+        int val1 = stack.pop();
+        int ret = val1 * val2;
+        stack.push(ret);
+    }
+    
+    public void divid(Stack<Integer> stack){
+        int val2 = stack.pop();
+        int val1 = stack.pop();
+        int ret = val1/val2;
+        stack.push(ret);
+    }
+    
+}
