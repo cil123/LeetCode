@@ -1,0 +1,79 @@
+//注意精度， use 1.0 * slop (i used 0.1 and it was wrong :( )
+/**
+ * Definition for a point.
+ * class Point {
+ *     int x;
+ *     int y;
+ *     Point() { x = 0; y = 0; }
+ *     Point(int a, int b) { x = a; y = b; }
+ * }
+ */
+ import java.util.*;
+ 
+ public class Solution {
+	    public int maxPoints(Point[] points) {
+	        if(points == null || points.length == 0){
+	            return 0;
+	        }
+	        int max = 0;
+	        for(int i = 0; i < points.length; i++){
+	            int x1 = points[i].x; 
+	            int y1 = points[i].y; 
+	            Hashtable<Double, Integer> hash = new Hashtable<Double, Integer>();
+	            int others = 0;
+	            int others2 = 0;
+	            boolean flag = false;
+	            for(int j = 0; j < points.length; j++){
+	                if(i != j){
+	                    int x2 = points[j].x; 
+	                    int y2 = points[j].y;
+	                    if(x1 - x2 == 0 && y1 - y2 != 0){
+	                        others++;
+	                        if(others > max){
+	                            max = others;
+	                            flag = true;
+	                            //System.out.println(" i " + i + "j " + j + " others " + others);
+	                        }
+	                    }else if(x1 - x2 == 0 && y1 - y2 == 0){
+	                            others2++;
+	                            //System.out.println(" i " + i + "j " + j + " others2 " + others2);
+	                    }else{
+	                        int y_ = y2 - y1;
+	                        int x_ = x2 - x1;
+	                        double slop = 1.0 * y_/x_;
+	                        //System.out.println(" i " + i + "j " + j +  "slop " + slop);
+	                        
+	                        if(!hash.containsKey(slop)){
+	                            hash.put(slop, 1);
+	                            if(max < 1){
+	                                max = 1;
+	                                flag = true;
+	                                //System.out.println(" max " + max);
+	                            }
+	                        }else{
+	                            int count = hash.get(slop);
+	                            count++;
+	                            hash.put(slop, count);
+	                            if(count > max){
+	                                max = count;
+	                                flag = true;
+	                                //System.out.println(" max " + max);
+	                            }
+	                        }
+	                    }
+	                }
+	            }
+	            
+	            if(flag == true && others2 != 0){
+	                max = max + others2;
+	               // System.out.println("i " + i + " max + others2 " + max);
+	            }
+	            
+	            if(max == 0){
+		            	max = others2;
+		         //   	System.out.println("i 0 " + i + " max + others2 " + max);
+		        }
+	        }
+	        return (max + 1);
+	    }
+ }
